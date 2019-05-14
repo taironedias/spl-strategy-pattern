@@ -12,7 +12,8 @@ const routes: Routes = [
   { path: 'aluno', loadChildren: './aluno/aluno.module#AlunoPageModule' },
   { path: 'fazer-exame/:id', loadChildren: './fazer-exame/fazer-exame.module#FazerExamePageModule' },
   { path: 'login-studant', loadChildren: './login-studant/login-studant.module#LoginStudantPageModule' },
-  { path: 'access-key', loadChildren: './access-key/access-key.module#AccessKeyPageModule' }
+  { path: 'access-key', loadChildren: './access-key/access-key.module#AccessKeyPageModule' },
+  { path: 'access', loadChildren: './access/access.module#AccessPageModule' }
 ];
 
 @NgModule({

@@ -24,7 +24,8 @@ export class HomePage implements OnInit{
   }
 
   studantUser() {
-    this.router.navigate([this.accessPage]);
+    // this.router.navigate([this.accessPage]);
+    this.router.navigate(['access']);
   }
 
 }
