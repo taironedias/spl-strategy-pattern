@@ -3,6 +3,7 @@ import { QuestionDataService } from '../services/question-data.service';
 import { Router } from '@angular/router';
 import { ExameCustom } from '../exame';
 import { AlertController } from '@ionic/angular';
+import { ConfigSubjectService } from '../services/config-subject.service';
 
 @Component({
   selector: 'app-selecionar-questao',
@@ -11,21 +12,40 @@ import { AlertController } from '@ionic/angular';
 })
 export class SelecionarQuestaoPage implements OnInit {
 
+  private level: boolean;
   nameExame = '';
   qstItens = [];
 
   constructor(private qstData: QuestionDataService,
     private router: Router,
-    private alertCtrl: AlertController) { }
+    private alertCtrl: AlertController,
+    private configS: ConfigSubjectService) { }
 
   ngOnInit() {
-    for (const qts of this.qstData.itens) {
-      this.qstItens.push({
-        value: qts.textoQst,
-        isChecked: false
-      });
-    }
+    this.configS.getInitConfig()
+      .subscribe(data => this.level = data.level);
+  }
 
+  ionViewDidEnter() {
+    if (this.level) {
+      for (let i = 1; i <= 3; i++) {
+        for (const qts of this.qstData.itens) {
+          if (qts.nivelDificuldade === i.toString()) {
+            this.qstItens.push({
+              value: qts.textoQst,
+              isChecked: false
+            });
+          }
+        }
+      }
+    } else {
+      for (const qts of this.qstData.itens) {
+        this.qstItens.push({
+          value: qts.textoQst,
+          isChecked: false
+        });
+      }
+    }
   }
 
   addQuestions() {

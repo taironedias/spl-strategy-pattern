@@ -13,6 +13,6 @@ export class TabsPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.tabs.select('criar-questao');
+    this.tabs.select('question-create');
   }
 }

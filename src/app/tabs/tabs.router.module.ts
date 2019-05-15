@@ -7,7 +7,7 @@ const routes: Routes = [
         path: '',
         component: TabsPage,
         children: [
-            { path: 'criar-questao', loadChildren: '../criar-questao/criar-questao.module#CriarQuestaoPageModule' },
+            { path: 'question-create', loadChildren: '../question-create/question-create.module#QuestionCreatePageModule' },
             { path: 'pesquisar-questao', loadChildren: '../pesquisar-questao/pesquisar-questao.module#PesquisarQuestaoPageModule' },
             { path: 'criar-exame', loadChildren: '../criar-exame/criar-exame.module#CriarExamePageModule' }
         ]

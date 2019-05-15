@@ -26,7 +26,7 @@ export class PesquisarQuestaoPage implements OnInit {
 
   goDetalhes(question) {
     this.qstDataService.data = question;
-    this.router.navigate(['atualizar-questao']);
+    this.router.navigate(['question-update']);
   }
 
 }
