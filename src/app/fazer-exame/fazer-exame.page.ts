@@ -12,6 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class FazerExamePage implements OnInit {
 
+  disabledButton = false;
   nameButton = 'Próximo';
   exame = new ExameCustom();
   qst = new QuestaoCustom();
@@ -22,13 +23,13 @@ export class FazerExamePage implements OnInit {
   respCheckbox = [false, false, false];
 
   constructor(private alertCtrl: AlertController,
-    private router: Router,
-    private route: ActivatedRoute,
-    private qstData: QuestionDataService) { }
+              private router: Router,
+              private route: ActivatedRoute,
+              private qstData: QuestionDataService) { }
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id');
-    console.log('Recebido ID = ' + id);
+    // console.log('Recebido ID = ' + id);
     this.cont = 0;
     this.exame = this.qstData.examesArray[id];
     this.qst = this.exame.questoes[this.cont];
@@ -37,7 +38,7 @@ export class FazerExamePage implements OnInit {
 
   setRespAlternativa(value) {
     if (this.qst.alternativas[value].isChecked) {
-      console.log('Congratulations!');
+      // console.log('Congratulations!');
       this.success = true;
     }
   }
@@ -51,7 +52,10 @@ export class FazerExamePage implements OnInit {
       this.qst = this.exame.questoes[this.cont];
     } else {
       // Desabilitar o botão ou voltar para a home principal!
-      this.router.navigate(['aluno']);
+      this.disabledButton = true;
+      this.pontuacao = this.pontuacao * 10;
+      this.showAlert('Pontuação Final', 'Você obteve ' + this.pontuacao + ' pontos de ' + this.cont + ' questões!');
+      this.router.navigate(['home']);
     }
   }
   async next() {
@@ -60,13 +64,9 @@ export class FazerExamePage implements OnInit {
     if (this.qst.opcEscolha === 'unica') {
       if (this.success) {
         this.pontuacao++;
-        this.showAlert('Parabéns!', 'Você acertou a questão ' + this.cont);
-      } else {
-        this.showAlert('Erroou! =/', 'Não foi dessa vez que acertou a questão ' + this.cont);
       }
     } else if (this.qst.opcEscolha === 'multipla') {
       this.success = true;
-      // console.log(this.respCheckbox);
       for (const i in this.respCheckbox) {
         if (this.respCheckbox[i] !== this.qst.alternativas[i].isChecked) {
           this.success = false;
@@ -75,22 +75,14 @@ export class FazerExamePage implements OnInit {
 
       if (this.success) {
         this.pontuacao++;
-        this.showAlert('Parabéns!', 'Você acertou a questão ' + this.cont);
-      } else {
-        this.showAlert('Erroou! =/', 'Não foi dessa vez que acertou a questão ' + this.cont);
       }
     } else if (this.qst.opcEscolha === 'texto') {
 
       if (this.textoLivreStudant.toLowerCase() === this.qst.textoLivre.toLowerCase()) {
         this.success = true;
         this.pontuacao++;
-        this.showAlert('Parabéns!', 'Você acertou a questão ' + this.cont);
       } else if (this.textoLivreStudant.toLowerCase().includes(this.qst.textoLivre.toLowerCase())) {
         this.pontuacao += 0.5;
-        this.showAlert('Aviso', 'Parcialmente certa, o professor revisará sua resposta');
-
-      } else {
-        this.showAlert('Erroou! =/', 'Não foi dessa vez que acertou a questão ' + this.cont);
       }
 
     }
@@ -106,14 +98,5 @@ export class FazerExamePage implements OnInit {
     });
     await alerta.present();
   }
-
-
-
-  
-
-
-
-
-
 
 }
