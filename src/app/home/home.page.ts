@@ -7,16 +7,16 @@ import { ConfigSubjectService } from '../services/config-subject.service';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit{
+export class HomePage implements OnInit {
 
-  private accessPage: string;
+  accessPage: string;
 
   constructor(private router: Router,
               private configS: ConfigSubjectService) {}
 
   ngOnInit() {
     this.configS.getInitConfig()
-        .subscribe(data => this.accessPage = data.access);
+      .subscribe(data => this.accessPage = data.access);
   }
 
   teacherUser() {
@@ -24,8 +24,7 @@ export class HomePage implements OnInit{
   }
 
   studantUser() {
-    // this.router.navigate([this.accessPage]);
-    this.router.navigate(['access']);
+    this.router.navigate(['access', this.accessPage]);
   }
 
 }

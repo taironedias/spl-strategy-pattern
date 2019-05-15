@@ -9,11 +9,8 @@ const routes: Routes = [
   { path: 'atualizar-questao', loadChildren: './atualizar-questao/atualizar-questao.module#AtualizarQuestaoPageModule' },
   { path: 'selecionar-questao', loadChildren: './selecionar-questao/selecionar-questao.module#SelecionarQuestaoPageModule' },
   { path: 'detalhes-exame/:id', loadChildren: './detalhes-exame/detalhes-exame.module#DetalhesExamePageModule' },
-  { path: 'aluno', loadChildren: './aluno/aluno.module#AlunoPageModule' },
   { path: 'fazer-exame/:id', loadChildren: './fazer-exame/fazer-exame.module#FazerExamePageModule' },
-  { path: 'login-studant', loadChildren: './login-studant/login-studant.module#LoginStudantPageModule' },
-  { path: 'access-key', loadChildren: './access-key/access-key.module#AccessKeyPageModule' },
-  { path: 'access', loadChildren: './access/access.module#AccessPageModule' }
+  { path: 'access/:data', loadChildren: './access/access.module#AccessPageModule' }
 ];
 
 @NgModule({

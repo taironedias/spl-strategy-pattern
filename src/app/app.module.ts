@@ -12,6 +12,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { QuestionDataService } from './services/question-data.service';
 import { ConfigSubjectService } from './services/config-subject.service';
 import { HttpClientModule } from '@angular/common/http';
+import { AccessStrategyToken } from './access/token';
+import { AccessWithKeyService } from './access/access-with-key.service';
+import { AccessWithLoginService } from './access/access-with-login.service';
+import { LoginTeacherService } from './login/login-teacher.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,6 +29,9 @@ import { HttpClientModule } from '@angular/common/http';
   providers: [
     QuestionDataService,
     ConfigSubjectService,
+    { provide: AccessStrategyToken, useClass: AccessWithKeyService, multi: true },
+    { provide: AccessStrategyToken, useClass: AccessWithLoginService, multi: true },
+    { provide: AccessStrategyToken, useClass: LoginTeacherService, multi: true },
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
