@@ -19,10 +19,10 @@ export class AccessPage implements OnInit {
   public chosenAccess: IAcessoStrategy;
 
   constructor(public questData: QuestionDataService,
-              public alertCtrl: AlertController,
-              public route: ActivatedRoute,
-              public router: Router,
-              private injector: Injector) { }
+    public alertCtrl: AlertController,
+    public route: ActivatedRoute,
+    public router: Router,
+    private injector: Injector) { }
 
   ngOnInit() {
     const data = this.route.snapshot.paramMap.get('data');
@@ -31,7 +31,8 @@ export class AccessPage implements OnInit {
   }
 
   getServiceByName(nameService: string) {
-    return this.injector.get(AccessStrategyToken).find(x => x.constructor.name === nameService);
+    return this.injector.get(AccessStrategyToken)
+      .find(x => x.constructor.name === nameService);
   }
 
   loading() {
