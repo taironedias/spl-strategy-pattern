@@ -9,22 +9,23 @@ import { ConfigSubjectService } from '../services/config-subject.service';
 })
 export class HomePage implements OnInit {
 
-  accessPage: string;
+  accessService: string;
 
   constructor(private router: Router,
               private configS: ConfigSubjectService) {}
 
   ngOnInit() {
     this.configS.getInitConfig()
-      .subscribe(data => this.accessPage = data.access);
+      .subscribe(data => this.accessService = data.access);
+  }
+
+  studantUser() {
+    this.router.navigate(['access', this.accessService]);
   }
 
   teacherUser() {
     this.router.navigate(['login']);
   }
 
-  studantUser() {
-    this.router.navigate(['access', this.accessPage]);
-  }
 
 }
